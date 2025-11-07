@@ -1,0 +1,25 @@
+{
+	"name": "kirbydesk/kirbyblock-media",
+	"description": "Media Block for Kirby CMS",
+	"type": "kirby-plugin",
+	"keywords": [
+		"kirby",
+		"kirby-plugin"
+	],
+	"license": "proprietary",
+	"homepage": "https://github.com/kirbydesk/kirbyblock-media",
+	"authors": [
+		{
+			"name": "Christian Fickinger",
+			"email": "kirby@christianfickinger.de",
+			"homepage": "https://christianfickinger.de"
+		}
+	],
+	"extra": {
+		"installer-name": "kirbyblock-media"
+	},
+	"require": {
+		"getkirby/composer-installer": "^1.2",
+		"kirbydesk/kirby-pagewizard": "dev-main"
+	}
+}
