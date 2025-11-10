@@ -57,7 +57,10 @@
 				'mediaSize' => [
 					'extends' => 'pagewizard/fields/media-size',
 				],
-				'line' => ['type' => 'line'],
+				'headlineImage' => [
+					'extends' => 'pagewizard/headlines/image',
+					'when'    => ['mediaType' => 'image']
+				],
 				'image' => [
 					'extends' => 'pagewizard/fields/image',
 					'uploads' => 'pwImage',
@@ -75,6 +78,10 @@
 				'imageCrop' => [
 					'extends' => 'pagewizard/fields/image-crop',
 					'when'    => ['mediaType' => 'image'],
+				],
+				'headlineSlideshow' => [
+					'extends' => 'pagewizard/headlines/slideshow',
+					'when'    => ['mediaType' => 'slideshow']
 				],
 				'slideshow' => [
 					'extends' => 'pagewizard/fields/images',
@@ -94,6 +101,10 @@
 					'extends' => 'pagewizard/fields/image-crop',
 					'when'    => ['mediaType' => 'slideshow'],
 				],
+				'headlineVideo' => [
+					'extends' => 'pagewizard/headlines/video',
+					'when'    => ['mediaType' => 'video']
+				],
 				'videoSource' => [
 					'extends' => 'pagewizard/fields/video-source',
 					'when'    => ['mediaType' => 'video'],
@@ -105,60 +116,13 @@
 						'videoSource' => 'external'
 					],
 				],
-				'videoRatio' => [
-					'extends' => 'pagewizard/fields/video-ratio',
-					'when'    => [
-						'mediaType' => 'video',
-						'videoSource' => 'internal'
-					],
-				],
-				'videoAutoplay' => [
-					'extends' => 'pagewizard/fields/video-autoplay',
-					'when'    => [
-						'mediaType' => 'video',
-						'videoSource' => 'internal'
-					],
-				],
-				'videoMuted' => [
-					'extends' => 'pagewizard/fields/video-muted',
-					'when'    => [
-						'mediaType' => 'video',
-						'videoSource' => 'internal'
-					],
-				],
-				'videoLoop' => [
-					'extends' => 'pagewizard/fields/video-loop',
-					'when'    => [
-						'mediaType' => 'video',
-						'videoSource' => 'internal'
-					],
-				],
-				'videoControls' => [
-					'extends' => 'pagewizard/fields/video-controls',
-					'when'    => [
-						'mediaType' => 'video',
-						'videoSource' => 'internal'
-					],
-				],
-				'videoPreload' => [
-					'extends' => 'pagewizard/fields/video-preload',
-					'when'    => [
-						'mediaType' => 'video',
-						'videoSource' => 'internal'
-					],
-				],
 				'video' => [
 					'extends' => 'pagewizard/fields/video',
+					'uploads' => 'pwVideo',
+					'query' => 'page.images.template("pwVideo")',
 					'when'    => [
 						'mediaType' => 'video',
-						'videoSource' => 'internal'
-					],
-				],
-				'videoPoster' => [
-					'extends' => 'pagewizard/fields/video-poster',
-					'when'    => [
-						'mediaType' => 'video',
-						'videoSource' => 'internal'
+						'videoSource' => 'internal',
 					],
 				]
       ],
