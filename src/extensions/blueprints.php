@@ -57,53 +57,17 @@
 				'mediaSize' => [
 					'extends' => 'pagewizard/fields/media-size',
 				],
-				'headlineImage' => [
-					'extends' => 'pagewizard/headlines/image',
-					'when'    => ['mediaType' => 'image']
-				],
 				'image' => [
 					'extends' => 'pagewizard/fields/image',
 					'uploads' => 'pwImage',
         	'query' => 'page.images.template("pwImage")',
 					'when'    => ['mediaType' => 'image'],
 				],
-				'imageZoom' => [
-					'extends' => 'pagewizard/fields/image-zoom',
-					'when'    => ['mediaType' => 'image'],
-				],
-				'imageRatio' => [
-					'extends' => 'pagewizard/fields/image-ratio',
-					'when'    => ['mediaType' => 'image'],
-				],
-				'imageCrop' => [
-					'extends' => 'pagewizard/fields/image-crop',
-					'when'    => ['mediaType' => 'image'],
-				],
-				'headlineSlideshow' => [
-					'extends' => 'pagewizard/headlines/slideshow',
-					'when'    => ['mediaType' => 'slideshow']
-				],
 				'slideshow' => [
 					'extends' => 'pagewizard/fields/images',
 					'uploads' => 'pwImage',
         	'query' => 'page.images.template("pwImage")',
 					'when'    => ['mediaType' => 'slideshow'],
-				],
-				'slideshowZoom' => [
-					'extends' => 'pagewizard/fields/image-zoom',
-					'when'    => ['mediaType' => 'slideshow'],
-				],
-				'slideshowRatio' => [
-					'extends' => 'pagewizard/fields/image-ratio',
-					'when'    => ['mediaType' => 'slideshow'],
-				],
-				'slideshowCrop' => [
-					'extends' => 'pagewizard/fields/image-crop',
-					'when'    => ['mediaType' => 'slideshow'],
-				],
-				'headlineVideo' => [
-					'extends' => 'pagewizard/headlines/video',
-					'when'    => ['mediaType' => 'video']
 				],
 				'videoSource' => [
 					'extends' => 'pagewizard/fields/video-source',
