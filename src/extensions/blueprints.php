@@ -38,10 +38,6 @@
           'extends' => 'pagewizard/fields/heading',
           'when'    => ['toggleHeading' => true],
         ],
-        'level' => [
-          'extends' => 'pagewizard/fields/level',
-          'when'    => ['toggleHeading' => true],
-				],
 				'mediaType' => [
 					'extends' => 'pagewizard/fields/media-type',
 				],
