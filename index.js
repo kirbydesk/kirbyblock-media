@@ -88,21 +88,54 @@
     props: {
       src: String,
       srcset: String,
-      crop: String,
-      ratio: String,
       size: String,
-      zoom: String,
+      image: Object,
       count: {
         type: Number,
         default: 0
+      }
+    },
+    data() {
+      return {
+        imageContent: null
+      };
+    },
+    computed: {
+      computedCrop() {
+        var _a;
+        return ((_a = this.imageContent) == null ? void 0 : _a.imagecrop) || false;
+      },
+      computedRatio() {
+        var _a;
+        return ((_a = this.imageContent) == null ? void 0 : _a.imageratio) || "1/1";
+      },
+      computedZoom() {
+        var _a;
+        return ((_a = this.imageContent) == null ? void 0 : _a.imagezoom) || false;
+      }
+    },
+    async mounted() {
+      var _a;
+      if ((_a = this.image) == null ? void 0 : _a.link) {
+        await this.loadImageContent();
+      }
+    },
+    methods: {
+      async loadImageContent() {
+        try {
+          const response = await this.$api.get(this.image.link);
+          this.imageContent = (response == null ? void 0 : response.content) || null;
+        } catch (error) {
+          console.error("Error loading image content:", error);
+        }
       }
     }
   };
   var _sfc_render$2 = function render() {
     var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "image", class: _vm.size }, [_c("div", { staticClass: "pattern" }, [_c("figure", { staticClass: "k-frame k-image-frame k-image", class: { "zoom": _vm.zoom }, style: {
-      "--fit": _vm.crop ? "cover" : "contain",
-      "--ratio": _vm.ratio || "1/1"
+    return _c("div", { staticClass: "image", class: _vm.size }, [_c("div", { staticClass: "pattern" }, [_c("figure", { staticClass: "k-frame k-image-frame k-image", class: { "zoom": _vm.computedZoom }, style: {
+      "--fit": _vm.computedCrop ? "cover" : "contain",
+      "--ratio": _vm.computedRatio
     } }, [_vm.src.length ? _c("img", { attrs: { "src": _vm.src, "srcset": _vm.srcset } }) : _vm._e(), _c("div", [_c("k-icon", { attrs: { "type": "search" } })], 1)])]), _vm.count > 1 ? _c("div", { staticClass: "dots" }, _vm._l(_vm.count, function(n) {
       return _c("span", { key: n, staticClass: "dot" });
     }), 0) : _vm._e()]);
@@ -121,19 +154,48 @@
   const pwImage = __component__$2.exports;
   const _sfc_main$1 = {
     props: {
-      videourl: String,
-      videosource: String,
-      ratio: String,
+      url: String,
+      source: String,
       size: String,
-      caption: String,
-      video: String
+      video: Object
+    },
+    data() {
+      return {
+        videoContent: null
+      };
+    },
+    computed: {
+      computedRatio() {
+        var _a;
+        return ((_a = this.videoContent) == null ? void 0 : _a.videoratio) || "16/9";
+      },
+      videoUrl() {
+        var _a;
+        return ((_a = this.video) == null ? void 0 : _a.url) || this.video;
+      }
+    },
+    async mounted() {
+      var _a;
+      if ((_a = this.video) == null ? void 0 : _a.link) {
+        await this.loadVideoContent();
+      }
     },
     methods: {
+      async loadVideoContent() {
+        try {
+          const response = await this.$api.get(this.video.link);
+          this.videoContent = (response == null ? void 0 : response.content) || null;
+        } catch (error) {
+          console.error("Error loading video content:", error);
+        }
+      },
       getEmbedUrl(url) {
-        if (url.includes("youtube.com/embed/")) return url;
+        if (url.includes("youtube.com/embed/") || url.includes("youtube-nocookie.com/embed/")) {
+          return url;
+        }
         const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
         if (ytMatch && ytMatch[1]) {
-          return `https://www.youtube.com/embed/${ytMatch[1]}`;
+          return `https://www.youtube-nocookie.com/embed/${ytMatch[1]}`;
         }
         const vimeoMatch = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
         if (vimeoMatch && vimeoMatch[1]) {
@@ -145,7 +207,7 @@
   };
   var _sfc_render$1 = function render() {
     var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "video", attrs: { "size": _vm.size } }, [_c("div", { staticClass: "pattern" }, [_vm.videourl || _vm.video ? _c("div", [_vm.videosource == "internal" ? _c("k-frame", { attrs: { "ratio": _vm.ratio } }, [[_c("video", { attrs: { "src": _vm.video, "controls": "" } })]], 2) : _vm.videosource == "external" ? _c("k-frame", { staticClass: "external", attrs: { "ratio": "16/9" } }, [_c("iframe", { attrs: { "src": _vm.getEmbedUrl(_vm.videourl) } })]) : _vm._e()], 1) : _c("div", { staticStyle: { "height": "300px" } })]), _c("div", { staticClass: "pwCaption" }, [_vm.caption.length ? _c("div", [_vm._v(" " + _vm._s(_vm.caption) + " ")]) : _c("div", { staticClass: "placeholder" }, [_vm._v(" " + _vm._s(_vm.$t("pw.field.caption.placeholder")) + " ")])])]);
+    return _c("div", { staticClass: "video", class: _vm.size }, [_c("div", { staticClass: "pattern" }, [_vm.url || _vm.videoUrl ? _c("div", [_vm.source == "internal" ? _c("k-frame", { attrs: { "ratio": _vm.computedRatio } }, [_c("video", { attrs: { "src": _vm.videoUrl, "controls": "" } })]) : _vm.source == "external" ? _c("k-frame", { staticClass: "external", attrs: { "ratio": "16/9" } }, [_c("iframe", { attrs: { "src": _vm.getEmbedUrl(_vm.url) } })]) : _vm._e()], 1) : _vm._e()])]);
   };
   var _sfc_staticRenderFns$1 = [];
   _sfc_render$1._withStripped = true;
@@ -214,9 +276,9 @@
     mixins: [pwToggleLayoutTab, pwGridStyle]
   };
   var _sfc_render = function render() {
-    var _a, _b, _c2, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n;
+    var _a, _b, _c2, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r;
     var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "pwPreview", attrs: { "data-kirbyblock": "media" }, on: { "dblclick": _vm.open } }, [_c("pwBlockinfo", { attrs: { "value": _vm.$t("kirbyblock-media.name"), "icon": "image", "layout": _vm.$t("pw.option." + _vm.content.mediatype) } }), _c("div", { staticClass: "pwGrid" }, [_c("div", { staticClass: "pwGridItem", style: _vm.gridVars }, [_vm.content.toggletagline ? _c("pwTagline", { attrs: { "value": _vm.content.tagline } }) : _vm._e(), _vm.content.toggleheading ? _c("pwHeading", { attrs: { "value": _vm.content.heading, "data-level": _vm.content.level } }) : _vm._e(), _vm.content.mediatype === "image" ? _c("pwImage", { attrs: { "src": ((_c2 = (_b = (_a = _vm.content) == null ? void 0 : _a.image) == null ? void 0 : _b[0]) == null ? void 0 : _c2.url) || "", "srcset": ((_g = (_f = (_e = (_d = _vm.content) == null ? void 0 : _d.image) == null ? void 0 : _e[0]) == null ? void 0 : _f.image) == null ? void 0 : _g.srcset) || "", "crop": _vm.content.imagecrop, "ratio": _vm.content.imageratio, "size": _vm.content.mediasize, "zoom": _vm.content.imagezoom } }) : _vm._e(), _vm.content.mediatype === "slideshow" ? _c("pwImage", { attrs: { "src": ((_j = (_i = (_h = _vm.content) == null ? void 0 : _h.slideshow) == null ? void 0 : _i[0]) == null ? void 0 : _j.url) || "", "srcset": ((_n = (_m = (_l = (_k = _vm.content) == null ? void 0 : _k.slideshow) == null ? void 0 : _l[0]) == null ? void 0 : _m.slideshow) == null ? void 0 : _n.srcset) || "", "count": Array.isArray(_vm.content.slideshow) ? _vm.content.slideshow.length : 0, "crop": _vm.content.slideshowcrop, "ratio": _vm.content.slideshowratio, "size": _vm.content.mediasize, "zoom": _vm.content.slideshowzoom } }) : _vm._e()], 1)])], 1);
+    return _c("div", { staticClass: "pwPreview", attrs: { "data-kirbyblock": "media" }, on: { "dblclick": _vm.open } }, [_c("pwBlockinfo", { attrs: { "value": _vm.$t("kirbyblock-media.name"), "icon": "image", "layout": _vm.$t("pw.option." + _vm.content.mediatype) } }), _c("div", { staticClass: "pwGrid" }, [_c("div", { staticClass: "pwGridItem", style: _vm.gridVars }, [_vm.content.toggletagline ? _c("pwTagline", { attrs: { "value": _vm.content.tagline } }) : _vm._e(), _vm.content.toggleheading ? _c("pwHeading", { attrs: { "value": _vm.content.heading, "data-level": _vm.content.level } }) : _vm._e(), _vm.content.mediatype === "image" ? _c("pwImage", { attrs: { "src": ((_c2 = (_b = (_a = _vm.content) == null ? void 0 : _a.image) == null ? void 0 : _b[0]) == null ? void 0 : _c2.url) || "", "srcset": ((_g = (_f = (_e = (_d = _vm.content) == null ? void 0 : _d.image) == null ? void 0 : _e[0]) == null ? void 0 : _f.image) == null ? void 0 : _g.srcset) || "", "size": _vm.content.mediasize, "zoom": _vm.content.imagezoom, "crop": _vm.content.imagecrop, "ratio": _vm.content.imageratio, "image": ((_i = (_h = _vm.content) == null ? void 0 : _h.image) == null ? void 0 : _i[0]) || null } }) : _vm._e(), _vm.content.mediatype === "slideshow" ? _c("pwImage", { attrs: { "src": ((_l = (_k = (_j = _vm.content) == null ? void 0 : _j.slideshow) == null ? void 0 : _k[0]) == null ? void 0 : _l.url) || "", "srcset": ((_p = (_o = (_n = (_m = _vm.content) == null ? void 0 : _m.slideshow) == null ? void 0 : _n[0]) == null ? void 0 : _o.slideshow) == null ? void 0 : _p.srcset) || "", "count": Array.isArray(_vm.content.slideshow) ? _vm.content.slideshow.length : 0, "crop": _vm.content.slideshowcrop, "ratio": _vm.content.slideshowratio, "size": _vm.content.mediasize, "zoom": _vm.content.slideshowzoom } }) : _vm._e(), _vm.content.mediatype === "video" ? _c("pwVideo", { attrs: { "url": _vm.content.videourl, "source": _vm.content.videosource, "size": _vm.content.mediasize, "video": ((_r = (_q = _vm.content) == null ? void 0 : _q.video) == null ? void 0 : _r[0]) || null } }) : _vm._e()], 1)])], 1);
   };
   var _sfc_staticRenderFns = [];
   _sfc_render._withStripped = true;

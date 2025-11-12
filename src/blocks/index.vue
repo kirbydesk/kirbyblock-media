@@ -20,22 +20,24 @@
 				<pwImage v-if="content.mediatype === 'image'"
 					:src="content?.image?.[0]?.url || ''"
 					:srcset="content?.image?.[0]?.image?.srcset || ''"
-					:crop="content.imagecrop"
-					:ratio="content.imageratio"
 					:size="content.mediasize"
-					:zoom="content.imagezoom"
+					:image="content?.image?.[0] || null"
 				/>
 				<!-- Slideshow (First image) -->
 				<pwImage v-if="content.mediatype === 'slideshow'"
 					:src="content?.slideshow?.[0]?.url || ''"
 					:srcset="content?.slideshow?.[0]?.slideshow?.srcset || ''"
 					:count="Array.isArray(content.slideshow) ? content.slideshow.length : 0"
-					:crop="content.slideshowcrop"
-					:ratio="content.slideshowratio"
 					:size="content.mediasize"
-					:zoom="content.slideshowzoom"
+					:image="content?.slideshow?.[0] || null"
 				/>
-
+				<!-- Video -->
+				<pwVideo v-if="content.mediatype === 'video'"
+					:url="content.videourl"
+					:source="content.videosource"
+					:size="content.mediasize"
+					:video="content?.video?.[0] || null"
+				/>
 			</div>
 		</div>
 	</div>
@@ -47,7 +49,7 @@ import pwTagline from '@/../../kirby-pagewizard/src/components/tagline.vue'
 import pwHeading from '@/../../kirby-pagewizard/src/components/heading.vue'
 import pwImage from '@/../../kirby-pagewizard/src/components/image.vue'
 import pwVideo from '@/../../kirby-pagewizard/src/components/video.vue'
-import pwToggleLayoutTab from '@/../../kirby-pagewizard/src/mixins/toggleLayoutTab.js';
+import pwToggleGridTab from '@/../../kirby-pagewizard/src/mixins/toggleGridTab.js';
 import pwGridStyle from '@/../../kirby-pagewizard/src/mixins/gridStyle.js';
 
 export default {
@@ -58,6 +60,6 @@ export default {
 		pwImage,
 		pwVideo
 	},
-	mixins: [pwToggleLayoutTab, pwGridStyle],
+	mixins: [pwToggleGridTab, pwGridStyle],
 }
 </script>
