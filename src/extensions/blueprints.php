@@ -44,6 +44,9 @@
 				'mediaSize' => [
 					'extends' => 'pagewizard/fields/media-size',
 				],
+				'mediaAlignment' => [
+					'extends' => 'pagewizard/fields/media-alignment',
+				],
 				'image' => [
 					'extends' => 'pagewizard/fields/image',
 					'uploads' => 'pwImage',

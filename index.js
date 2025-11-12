@@ -40,12 +40,36 @@
   const pwBlockinfo = __component__$5.exports;
   const _sfc_main$4 = {
     props: {
-      value: String
+      value: String,
+      content: {
+        type: Object,
+        default: () => ({})
+      }
+    },
+    computed: {
+      parsedData() {
+        var _a;
+        const val = ((_a = this.content) == null ? void 0 : _a.tagline) || this.value;
+        if (!val) return { text: "", align: "left" };
+        try {
+          return typeof val === "string" ? JSON.parse(val) : val;
+        } catch (e) {
+          return { text: val, align: "left" };
+        }
+      },
+      text() {
+        const { text = "" } = this.parsedData;
+        return text;
+      },
+      align() {
+        const { align = "left" } = this.parsedData;
+        return align;
+      }
     }
   };
   var _sfc_render$4 = function render() {
     var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "pwTagline" }, [_vm.value ? _c("div", { domProps: { "innerHTML": _vm._s(_vm.value) } }) : _c("div", { staticClass: "placeholder" }, [_vm._v(" " + _vm._s(_vm.$t("pw.field.tagline.placeholder")) + " ")])]);
+    return _c("div", { staticClass: "pwTagline", attrs: { "data-align": _vm.align } }, [_vm.text ? _c("div", { domProps: { "innerHTML": _vm._s(_vm.text) } }) : _c("div", { staticClass: "placeholder" }, [_vm._v(" " + _vm._s(_vm.$t("pw.field.tagline.placeholder")) + " ")])]);
   };
   var _sfc_staticRenderFns$4 = [];
   _sfc_render$4._withStripped = true;
@@ -62,15 +86,39 @@
   const _sfc_main$3 = {
     props: {
       value: String,
-      level: {
-        type: String,
-        default: "h2"
+      content: {
+        type: Object,
+        default: () => ({})
+      }
+    },
+    computed: {
+      parsedData() {
+        var _a;
+        const val = ((_a = this.content) == null ? void 0 : _a.heading) || this.value;
+        if (!val) return { text: "", level: "h2", align: "left" };
+        try {
+          return typeof val === "string" ? JSON.parse(val) : val;
+        } catch (e) {
+          return { text: val, level: "h2", align: "left" };
+        }
+      },
+      text() {
+        const { text = "" } = this.parsedData;
+        return text;
+      },
+      level() {
+        const { level = "h2" } = this.parsedData;
+        return level;
+      },
+      align() {
+        const { align = "left" } = this.parsedData;
+        return align;
       }
     }
   };
   var _sfc_render$3 = function render() {
     var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "pwHeading", attrs: { "data-level": _vm.level } }, [_vm.value ? _c("div", { domProps: { "innerHTML": _vm._s(_vm.value) } }) : _c("div", { staticClass: "placeholder" }, [_vm._v(" " + _vm._s(_vm.$t("pw.field.heading.placeholder")) + " ")])]);
+    return _c("div", { staticClass: "pwHeading", attrs: { "data-align": _vm.align, "data-lvl": _vm.level } }, [_vm.text ? _c("div", { domProps: { "innerHTML": _vm._s(_vm.text) } }) : _c("div", { staticClass: "placeholder" }, [_vm._v(" " + _vm._s(_vm.$t("pw.field.heading.placeholder")) + " ")])]);
   };
   var _sfc_staticRenderFns$3 = [];
   _sfc_render$3._withStripped = true;
@@ -89,6 +137,10 @@
       src: String,
       srcset: String,
       size: String,
+      alignment: {
+        type: String,
+        default: "left"
+      },
       image: Object,
       count: {
         type: Number,
@@ -133,12 +185,12 @@
   };
   var _sfc_render$2 = function render() {
     var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "image", class: _vm.size }, [_c("div", { staticClass: "pattern" }, [_c("figure", { staticClass: "k-frame k-image-frame k-image", class: { "zoom": _vm.computedZoom }, style: {
+    return _vm.src.length ? _c("div", { staticClass: "wrap", attrs: { "data-align": _vm.alignment } }, [_c("div", { staticClass: "image" }, [_c("div", { staticClass: "pattern", class: _vm.size }, [_c("figure", { staticClass: "k-frame k-image-frame k-image", class: { "zoom": _vm.computedZoom }, style: {
       "--fit": _vm.computedCrop ? "cover" : "contain",
       "--ratio": _vm.computedRatio
-    } }, [_vm.src.length ? _c("img", { attrs: { "src": _vm.src, "srcset": _vm.srcset } }) : _vm._e(), _c("div", [_c("k-icon", { attrs: { "type": "search" } })], 1)])]), _vm.count > 1 ? _c("div", { staticClass: "dots" }, _vm._l(_vm.count, function(n) {
+    } }, [_c("img", { attrs: { "src": _vm.src, "srcset": _vm.srcset } }), _c("div", [_c("k-icon", { attrs: { "type": "search" } })], 1)])])]), _vm.count > 1 ? _c("div", { staticClass: "controls" }, [_c("div", { staticClass: "dots", class: _vm.size }, _vm._l(_vm.count, function(n) {
       return _c("span", { key: n, staticClass: "dot" });
-    }), 0) : _vm._e()]);
+    }), 0)]) : _vm._e()]) : _vm._e();
   };
   var _sfc_staticRenderFns$2 = [];
   _sfc_render$2._withStripped = true;
@@ -157,6 +209,10 @@
       url: String,
       source: String,
       size: String,
+      alignment: {
+        type: String,
+        default: "left"
+      },
       video: Object
     },
     data() {
@@ -207,7 +263,7 @@
   };
   var _sfc_render$1 = function render() {
     var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "video", class: _vm.size }, [_c("div", { staticClass: "pattern" }, [_vm.url || _vm.videoUrl ? _c("div", [_vm.source == "internal" ? _c("k-frame", { attrs: { "ratio": _vm.computedRatio } }, [_c("video", { attrs: { "src": _vm.videoUrl, "controls": "" } })]) : _vm.source == "external" ? _c("k-frame", { staticClass: "external", attrs: { "ratio": "16/9" } }, [_c("iframe", { attrs: { "src": _vm.getEmbedUrl(_vm.url) } })]) : _vm._e()], 1) : _vm._e()])]);
+    return _vm.url || _vm.videoUrl ? _c("div", { staticClass: "video", attrs: { "data-align": _vm.alignment } }, [_c("div", { staticClass: "pattern", class: _vm.size }, [_vm.source == "internal" ? _c("k-frame", { attrs: { "ratio": _vm.computedRatio } }, [_c("video", { attrs: { "src": _vm.videoUrl, "controls": "" } })]) : _vm.source == "external" ? _c("k-frame", { staticClass: "external", attrs: { "ratio": "16/9" } }, [_c("iframe", { attrs: { "src": _vm.getEmbedUrl(_vm.url) } })]) : _vm._e()], 1)]) : _vm._e();
   };
   var _sfc_staticRenderFns$1 = [];
   _sfc_render$1._withStripped = true;
@@ -221,11 +277,11 @@
   );
   __component__$1.options.__file = "/Users/christian/Projects/kirbydesk/site/plugins/kirby-pagewizard/src/components/video.vue";
   const pwVideo = __component__$1.exports;
-  const pwToggleLayoutTab = {
+  const pwToggleGridTab = {
     mounted() {
       this.setDrawerClass();
       this.$watch(
-        () => this.content.togglelayout,
+        () => this.content.togglegrid,
         () => {
           this.setDrawerClass();
         }
@@ -244,7 +300,7 @@
       setDrawerClass() {
         const drawers = document.querySelectorAll(".k-drawer.k-form-drawer");
         drawers.forEach((drawer) => {
-          drawer.classList.toggle("hide-layout-tab", this.content.togglelayout === false);
+          drawer.classList.toggle("hide-grid-tab", this.content.togglegrid === false);
         });
       }
     }
@@ -273,12 +329,12 @@
       pwImage,
       pwVideo
     },
-    mixins: [pwToggleLayoutTab, pwGridStyle]
+    mixins: [pwToggleGridTab, pwGridStyle]
   };
   var _sfc_render = function render() {
-    var _a, _b, _c2, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r;
+    var _a, _b, _c2, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t;
     var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "pwPreview", attrs: { "data-kirbyblock": "media" }, on: { "dblclick": _vm.open } }, [_c("pwBlockinfo", { attrs: { "value": _vm.$t("kirbyblock-media.name"), "icon": "image", "layout": _vm.$t("pw.option." + _vm.content.mediatype) } }), _c("div", { staticClass: "pwGrid" }, [_c("div", { staticClass: "pwGridItem", style: _vm.gridVars }, [_vm.content.toggletagline ? _c("pwTagline", { attrs: { "value": _vm.content.tagline } }) : _vm._e(), _vm.content.toggleheading ? _c("pwHeading", { attrs: { "value": _vm.content.heading, "data-level": _vm.content.level } }) : _vm._e(), _vm.content.mediatype === "image" ? _c("pwImage", { attrs: { "src": ((_c2 = (_b = (_a = _vm.content) == null ? void 0 : _a.image) == null ? void 0 : _b[0]) == null ? void 0 : _c2.url) || "", "srcset": ((_g = (_f = (_e = (_d = _vm.content) == null ? void 0 : _d.image) == null ? void 0 : _e[0]) == null ? void 0 : _f.image) == null ? void 0 : _g.srcset) || "", "size": _vm.content.mediasize, "zoom": _vm.content.imagezoom, "crop": _vm.content.imagecrop, "ratio": _vm.content.imageratio, "image": ((_i = (_h = _vm.content) == null ? void 0 : _h.image) == null ? void 0 : _i[0]) || null } }) : _vm._e(), _vm.content.mediatype === "slideshow" ? _c("pwImage", { attrs: { "src": ((_l = (_k = (_j = _vm.content) == null ? void 0 : _j.slideshow) == null ? void 0 : _k[0]) == null ? void 0 : _l.url) || "", "srcset": ((_p = (_o = (_n = (_m = _vm.content) == null ? void 0 : _m.slideshow) == null ? void 0 : _n[0]) == null ? void 0 : _o.slideshow) == null ? void 0 : _p.srcset) || "", "count": Array.isArray(_vm.content.slideshow) ? _vm.content.slideshow.length : 0, "crop": _vm.content.slideshowcrop, "ratio": _vm.content.slideshowratio, "size": _vm.content.mediasize, "zoom": _vm.content.slideshowzoom } }) : _vm._e(), _vm.content.mediatype === "video" ? _c("pwVideo", { attrs: { "url": _vm.content.videourl, "source": _vm.content.videosource, "size": _vm.content.mediasize, "video": ((_r = (_q = _vm.content) == null ? void 0 : _q.video) == null ? void 0 : _r[0]) || null } }) : _vm._e()], 1)])], 1);
+    return _c("div", { staticClass: "pwPreview", attrs: { "data-kirbyblock": "media" }, on: { "dblclick": _vm.open } }, [_c("pwBlockinfo", { attrs: { "value": _vm.$t("kirbyblock-media.name"), "icon": "image", "layout": _vm.$t("pw.option." + _vm.content.mediatype) } }), _c("div", { staticClass: "pwGrid" }, [_c("div", { staticClass: "pwGridItem", style: _vm.gridVars }, [_vm.content.toggletagline ? _c("pwTagline", { attrs: { "value": _vm.content.tagline } }) : _vm._e(), _vm.content.toggleheading ? _c("pwHeading", { attrs: { "value": _vm.content.heading, "data-level": _vm.content.level } }) : _vm._e(), _vm.content.mediatype === "image" ? _c("pwImage", { attrs: { "src": ((_c2 = (_b = (_a = _vm.content) == null ? void 0 : _a.image) == null ? void 0 : _b[0]) == null ? void 0 : _c2.url) || "", "srcset": ((_g = (_f = (_e = (_d = _vm.content) == null ? void 0 : _d.image) == null ? void 0 : _e[0]) == null ? void 0 : _f.image) == null ? void 0 : _g.srcset) || "", "size": _vm.content.mediasize, "alignment": _vm.content.mediaalignment, "image": ((_i = (_h = _vm.content) == null ? void 0 : _h.image) == null ? void 0 : _i[0]) || null } }) : _vm._e(), _vm.content.mediatype === "slideshow" ? _c("pwImage", { attrs: { "src": ((_l = (_k = (_j = _vm.content) == null ? void 0 : _j.slideshow) == null ? void 0 : _k[0]) == null ? void 0 : _l.url) || "", "srcset": ((_p = (_o = (_n = (_m = _vm.content) == null ? void 0 : _m.slideshow) == null ? void 0 : _n[0]) == null ? void 0 : _o.slideshow) == null ? void 0 : _p.srcset) || "", "count": Array.isArray(_vm.content.slideshow) ? _vm.content.slideshow.length : 0, "size": _vm.content.mediasize, "alignment": _vm.content.mediaalignment, "image": ((_r = (_q = _vm.content) == null ? void 0 : _q.slideshow) == null ? void 0 : _r[0]) || null } }) : _vm._e(), _vm.content.mediatype === "video" ? _c("pwVideo", { attrs: { "url": _vm.content.videourl, "source": _vm.content.videosource, "size": _vm.content.mediasize, "alignment": _vm.content.mediaalignment, "video": ((_t = (_s = _vm.content) == null ? void 0 : _s.video) == null ? void 0 : _t[0]) || null } }) : _vm._e()], 1)])], 1);
   };
   var _sfc_staticRenderFns = [];
   _sfc_render._withStripped = true;

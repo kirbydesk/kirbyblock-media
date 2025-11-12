@@ -21,6 +21,7 @@
 					:src="content?.image?.[0]?.url || ''"
 					:srcset="content?.image?.[0]?.image?.srcset || ''"
 					:size="content.mediasize"
+					:alignment="content.mediaalignment"
 					:image="content?.image?.[0] || null"
 				/>
 				<!-- Slideshow (First image) -->
@@ -29,6 +30,7 @@
 					:srcset="content?.slideshow?.[0]?.slideshow?.srcset || ''"
 					:count="Array.isArray(content.slideshow) ? content.slideshow.length : 0"
 					:size="content.mediasize"
+					:alignment="content.mediaalignment"
 					:image="content?.slideshow?.[0] || null"
 				/>
 				<!-- Video -->
@@ -36,6 +38,7 @@
 					:url="content.videourl"
 					:source="content.videosource"
 					:size="content.mediasize"
+					:alignment="content.mediaalignment"
 					:video="content?.video?.[0] || null"
 				/>
 			</div>
