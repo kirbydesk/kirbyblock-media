@@ -1,5 +1,11 @@
 <template>
-	<div class="pwPreview" data-kirbyblock="media" @dblclick="open">
+	<div
+		class="pwPreview"
+		data-kirbyblock="media"
+		@dblclick="open"
+		:data-margintop="content.margintop === true ? 'true' : null"
+		:data-marginbottom="content.marginbottom === true ? 'true' : null"
+		>
 
 		<pwBlockinfo
 			:value="$t('kirbyblock-media.name')"
@@ -8,13 +14,18 @@
 		/>
 
 		<div class="pwGrid">
-			<div class="pwGridItem" :style="gridVars">
+			<div
+				class="pwGridItem"
+				:style="gridVars"
+				:data-paddingtop="content.paddingtop === true ? 'true' : null"
+				:data-paddingbottom="content.paddingbottom === true ? 'true' : null"
+				>
 
 				<!-- Tagline -->
-				<pwTagline v-if="content.toggletagline" :value="content.tagline" />
+				<pwTagline v-if="settings.tagline" :value="content.tagline" />
 
 				<!-- Heading -->
-				<pwHeading v-if="content.toggleheading" :value="content.heading" :data-level="content.level" />
+				<pwHeading v-if="settings.heading" :value="content.heading" :data-level="content.level" />
 
 				<!-- Image -->
 				<pwImage v-if="content.mediatype === 'image'"
@@ -41,6 +52,7 @@
 					:alignment="content.mediaalignment"
 					:video="content?.video?.[0] || null"
 				/>
+
 			</div>
 		</div>
 	</div>
@@ -52,7 +64,6 @@ import pwTagline from '@/../../kirby-pagewizard/src/components/tagline.vue'
 import pwHeading from '@/../../kirby-pagewizard/src/components/heading.vue'
 import pwImage from '@/../../kirby-pagewizard/src/components/image.vue'
 import pwVideo from '@/../../kirby-pagewizard/src/components/video.vue'
-import pwToggleGridTab from '@/../../kirby-pagewizard/src/mixins/toggleGridTab.js';
 import pwGridStyle from '@/../../kirby-pagewizard/src/mixins/gridStyle.js';
 
 export default {
@@ -63,6 +74,19 @@ export default {
 		pwImage,
 		pwVideo
 	},
-	mixins: [pwToggleGridTab, pwGridStyle],
+	mixins: [pwGridStyle],
+	data() {
+		return {
+			settings: {}
+		}
+	},
+	async created() {
+		try {
+			const response = await this.$api.get('pagewizard/settings/pwmedia');
+			this.settings = response.settings;
+		} catch (e) {
+			this.settings = {};
+		}
+	}
 }
 </script>

@@ -277,34 +277,6 @@
   );
   __component__$1.options.__file = "/Users/christian/Projects/kirbydesk/site/plugins/kirby-pagewizard/src/components/video.vue";
   const pwVideo = __component__$1.exports;
-  const pwToggleGridTab = {
-    mounted() {
-      this.setDrawerClass();
-      this.$watch(
-        () => this.content.togglegrid,
-        () => {
-          this.setDrawerClass();
-        }
-      );
-      this.drawerObserver = new MutationObserver(() => {
-        this.setDrawerClass();
-      });
-      this.drawerObserver.observe(document.body, { childList: true, subtree: true });
-    },
-    beforeDestroy() {
-      if (this.drawerObserver) {
-        this.drawerObserver.disconnect();
-      }
-    },
-    methods: {
-      setDrawerClass() {
-        const drawers = document.querySelectorAll(".k-drawer.k-form-drawer");
-        drawers.forEach((drawer) => {
-          drawer.classList.toggle("hide-grid-tab", this.content.togglegrid === false);
-        });
-      }
-    }
-  };
   const pwGridStyle = {
     computed: {
       gridVars() {
@@ -329,12 +301,25 @@
       pwImage,
       pwVideo
     },
-    mixins: [pwToggleGridTab, pwGridStyle]
+    mixins: [pwGridStyle],
+    data() {
+      return {
+        settings: {}
+      };
+    },
+    async created() {
+      try {
+        const response = await this.$api.get("pagewizard/settings/pwmedia");
+        this.settings = response.settings;
+      } catch (e) {
+        this.settings = {};
+      }
+    }
   };
   var _sfc_render = function render() {
     var _a, _b, _c2, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t;
     var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "pwPreview", attrs: { "data-kirbyblock": "media" }, on: { "dblclick": _vm.open } }, [_c("pwBlockinfo", { attrs: { "value": _vm.$t("kirbyblock-media.name"), "icon": "image", "layout": _vm.$t("pw.option." + _vm.content.mediatype) } }), _c("div", { staticClass: "pwGrid" }, [_c("div", { staticClass: "pwGridItem", style: _vm.gridVars }, [_vm.content.toggletagline ? _c("pwTagline", { attrs: { "value": _vm.content.tagline } }) : _vm._e(), _vm.content.toggleheading ? _c("pwHeading", { attrs: { "value": _vm.content.heading, "data-level": _vm.content.level } }) : _vm._e(), _vm.content.mediatype === "image" ? _c("pwImage", { attrs: { "src": ((_c2 = (_b = (_a = _vm.content) == null ? void 0 : _a.image) == null ? void 0 : _b[0]) == null ? void 0 : _c2.url) || "", "srcset": ((_g = (_f = (_e = (_d = _vm.content) == null ? void 0 : _d.image) == null ? void 0 : _e[0]) == null ? void 0 : _f.image) == null ? void 0 : _g.srcset) || "", "size": _vm.content.mediasize, "alignment": _vm.content.mediaalignment, "image": ((_i = (_h = _vm.content) == null ? void 0 : _h.image) == null ? void 0 : _i[0]) || null } }) : _vm._e(), _vm.content.mediatype === "slideshow" ? _c("pwImage", { attrs: { "src": ((_l = (_k = (_j = _vm.content) == null ? void 0 : _j.slideshow) == null ? void 0 : _k[0]) == null ? void 0 : _l.url) || "", "srcset": ((_p = (_o = (_n = (_m = _vm.content) == null ? void 0 : _m.slideshow) == null ? void 0 : _n[0]) == null ? void 0 : _o.slideshow) == null ? void 0 : _p.srcset) || "", "count": Array.isArray(_vm.content.slideshow) ? _vm.content.slideshow.length : 0, "size": _vm.content.mediasize, "alignment": _vm.content.mediaalignment, "image": ((_r = (_q = _vm.content) == null ? void 0 : _q.slideshow) == null ? void 0 : _r[0]) || null } }) : _vm._e(), _vm.content.mediatype === "video" ? _c("pwVideo", { attrs: { "url": _vm.content.videourl, "source": _vm.content.videosource, "size": _vm.content.mediasize, "alignment": _vm.content.mediaalignment, "video": ((_t = (_s = _vm.content) == null ? void 0 : _s.video) == null ? void 0 : _t[0]) || null } }) : _vm._e()], 1)])], 1);
+    return _c("div", { staticClass: "pwPreview", attrs: { "data-kirbyblock": "media", "data-margintop": _vm.content.margintop === true ? "true" : null, "data-marginbottom": _vm.content.marginbottom === true ? "true" : null }, on: { "dblclick": _vm.open } }, [_c("pwBlockinfo", { attrs: { "value": _vm.$t("kirbyblock-media.name"), "icon": "image", "layout": _vm.$t("pw.option." + _vm.content.mediatype) } }), _c("div", { staticClass: "pwGrid" }, [_c("div", { staticClass: "pwGridItem", style: _vm.gridVars, attrs: { "data-paddingtop": _vm.content.paddingtop === true ? "true" : null, "data-paddingbottom": _vm.content.paddingbottom === true ? "true" : null } }, [_vm.settings.tagline ? _c("pwTagline", { attrs: { "value": _vm.content.tagline } }) : _vm._e(), _vm.settings.heading ? _c("pwHeading", { attrs: { "value": _vm.content.heading, "data-level": _vm.content.level } }) : _vm._e(), _vm.content.mediatype === "image" ? _c("pwImage", { attrs: { "src": ((_c2 = (_b = (_a = _vm.content) == null ? void 0 : _a.image) == null ? void 0 : _b[0]) == null ? void 0 : _c2.url) || "", "srcset": ((_g = (_f = (_e = (_d = _vm.content) == null ? void 0 : _d.image) == null ? void 0 : _e[0]) == null ? void 0 : _f.image) == null ? void 0 : _g.srcset) || "", "size": _vm.content.mediasize, "alignment": _vm.content.mediaalignment, "image": ((_i = (_h = _vm.content) == null ? void 0 : _h.image) == null ? void 0 : _i[0]) || null } }) : _vm._e(), _vm.content.mediatype === "slideshow" ? _c("pwImage", { attrs: { "src": ((_l = (_k = (_j = _vm.content) == null ? void 0 : _j.slideshow) == null ? void 0 : _k[0]) == null ? void 0 : _l.url) || "", "srcset": ((_p = (_o = (_n = (_m = _vm.content) == null ? void 0 : _m.slideshow) == null ? void 0 : _n[0]) == null ? void 0 : _o.slideshow) == null ? void 0 : _p.srcset) || "", "count": Array.isArray(_vm.content.slideshow) ? _vm.content.slideshow.length : 0, "size": _vm.content.mediasize, "alignment": _vm.content.mediaalignment, "image": ((_r = (_q = _vm.content) == null ? void 0 : _q.slideshow) == null ? void 0 : _r[0]) || null } }) : _vm._e(), _vm.content.mediatype === "video" ? _c("pwVideo", { attrs: { "url": _vm.content.videourl, "source": _vm.content.videosource, "size": _vm.content.mediasize, "alignment": _vm.content.mediaalignment, "video": ((_t = (_s = _vm.content) == null ? void 0 : _s.video) == null ? void 0 : _t[0]) || null } }) : _vm._e()], 1)])], 1);
   };
   var _sfc_staticRenderFns = [];
   _sfc_render._withStripped = true;
@@ -347,10 +332,10 @@
     null
   );
   __component__.options.__file = "/Users/christian/Projects/kirbydesk/site/plugins/kirbyblock-media/src/blocks/index.vue";
-  const pwMedia = __component__.exports;
+  const pwmedia = __component__.exports;
   panel.plugin("kirbydesk/kirbyblock-media", {
     blocks: {
-      pwMedia
+      pwmedia
     }
   });
 })();

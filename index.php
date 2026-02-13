@@ -1,4 +1,8 @@
-<?php Kirby::plugin('kirbydesk/kirbyblock-media', [
+<?php
+
+pwConfig::register('pwmedia', __DIR__ . '/src/config');
+
+Kirby::plugin('kirbydesk/kirbyblock-media', [
 
 	/* -------------- Extensions --------------*/
 	'blueprints' => require_once 'src/extensions/blueprints.php',
