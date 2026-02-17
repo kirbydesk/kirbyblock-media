@@ -93,6 +93,9 @@
 		/* -------------- Layout Tab --------------*/
 		$tabs['layout'] = pwLayout::options('pwmedia', $defaults);
 
+		/* -------------- Style Tab --------------*/
+		$tabs['style'] = pwStyle::options('pwmedia', $defaults);
+
 		/* -------------- Common Tabs (grid, spacing, theme) --------------*/
 		pwConfig::buildTabs('pwmedia', $defaults, $settings, $tabs);
 
