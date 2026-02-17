@@ -3,6 +3,7 @@
 		class="pwPreview"
 		data-kirbyblock="media"
 		@dblclick="open"
+		:style="colorVars"
 		:data-margintop="content.margintop === true ? 'true' : null"
 		:data-marginbottom="content.marginbottom === true ? 'true' : null"
 		>
@@ -67,6 +68,7 @@ import pwHeading from '@/../../kirby-pagewizard/src/components/heading.vue'
 import pwImage from '@/../../kirby-pagewizard/src/components/image.vue'
 import pwVideo from '@/../../kirby-pagewizard/src/components/video.vue'
 import pwGridStyle from '@/../../kirby-pagewizard/src/mixins/gridStyle.js';
+import pwColorStyle from '@/../../kirby-pagewizard/src/mixins/colorStyle.js';
 
 export default {
 	components: {
@@ -76,7 +78,7 @@ export default {
 		pwImage,
 		pwVideo
 	},
-	mixins: [pwGridStyle],
+	mixins: [pwGridStyle, pwColorStyle],
 	data() {
 		return {
 			settings: {}
