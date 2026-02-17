@@ -18,7 +18,9 @@
 				class="pwGridItem"
 				:style="gridVars"
 				:data-paddingtop="content.paddingtop === true ? 'true' : null"
+				:data-paddingright="content.paddingright === true ? 'true' : null"
 				:data-paddingbottom="content.paddingbottom === true ? 'true' : null"
+				:data-paddingleft="content.paddingleft === true ? 'true' : null"
 				>
 
 				<!-- Tagline -->

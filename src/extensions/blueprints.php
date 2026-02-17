@@ -14,7 +14,7 @@
 
 		/* -------------- Content Tab --------------*/
 		$contentFields = [
-			'headlineContent' => ['extends' => 'pagewizard/headlines/blockcontent']
+			'headlineContent' => ['extends' => 'pagewizard/headlines/content']
 		];
 
 		/* -------------- Tagline --------------*/
@@ -90,19 +90,14 @@
 			'fields' => $contentFields,
 		];
 
+		/* -------------- Layout Tab --------------*/
+		$tabs['layout'] = pwLayout::options('pwmedia', $defaults);
+
 		/* -------------- Common Tabs (grid, spacing, theme) --------------*/
 		pwConfig::buildTabs('pwmedia', $defaults, $settings, $tabs);
 
-		/* -------------- Properties Tab --------------*/
-		$tabs['properties'] = [
-			'label'  => 'pw.tab.properties',
-			'fields' => [
-				'headlineProperties' => ['extends' => 'pagewizard/headlines/blockproperties'],
-				'fragment' => [
-					'extends' => 'pagewizard/fields/fragment'
-				]
-			]
-		];
+		/* -------------- Settings Tab --------------*/
+		$tabs['settings'] = pwSettings::options('pwmedia', $defaults);
 
 		/* -------------- Blueprint --------------*/
 		return [
