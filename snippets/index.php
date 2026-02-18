@@ -16,14 +16,16 @@ echo ' data-block-id="b'.$block->id().'"';
 echo ' data-margin-top="'.$block->margintop()->value().'"';
 echo ' data-margin-bottom="'.$block->marginbottom()->value().'"';
 echo ' data-padding-top="'.$block->paddingtop()->value().'"';
+echo ' data-padding-right="'.$block->paddingright()->value().'"';
 echo ' data-padding-bottom="'.$block->paddingbottom()->value().'"';
+echo ' data-padding-left="'.$block->paddingleft()->value().'"';
 echo ' data-style="'.$block->style()->value().'"';
 echo ' data-background-size="'.$block->backgroundsize()->value().'"';
 echo $block->fragment()->isNotEmpty() ? ' id="'.$block->fragment()->value().'"' : '';
 echo '>'."\n";
 
 // Grid
-echo '<div data-layout="grid"><div';
+echo '<div data-layout="grid"><div data-layout="grid-item"';
 echo ' data-grid-size-sm="'.$block->gridsizesm()->value().'"';
 echo ' data-grid-size-md="'.$block->gridsizemd()->value().'"';
 echo ' data-grid-size-lg="'.$block->gridsizelg()->value().'"';
