@@ -10,7 +10,7 @@
 
 		<pwBlockinfo
 			:value="$t('kirbyblock-media.name')"
-			icon="image"
+			icon="images"
 			:layout="$t('pw.option.' + content.mediatype)"
 		/>
 

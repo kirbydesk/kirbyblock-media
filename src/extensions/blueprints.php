@@ -29,18 +29,20 @@
 				'extends' => 'pagewizard/fields/heading'
 			];
 		}
-		/* -------------- Media Type --------------*/
-		$contentFields['mediaType'] = [
-			'extends' => 'pagewizard/fields/media-type'
-		];
 		/* -------------- Media Size --------------*/
 		$contentFields['mediaSize'] = [
 			'extends' => 'pagewizard/fields/media-size'
 		];
-		/* -------------- Media Alignment --------------*/
+		/* -------------- Media Alignment (injected into mediaType label) --------------*/
 		$contentFields['mediaAlignment'] = [
-			'extends' => 'pagewizard/fields/media-alignment'
+			'type' => 'pwalign',
+			'default' => 'left'
 		];
+		/* -------------- Media Type --------------*/
+		$contentFields['mediaType'] = [
+			'extends' => 'pagewizard/fields/media-type'
+		];
+
 		/* -------------- Image --------------*/
 		$contentFields['image'] = [
 			'extends' => 'pagewizard/fields/image',
@@ -105,7 +107,7 @@
 		/* -------------- Blueprint --------------*/
 		return [
 			'name'	=> 'kirbyblock-media.name',
-			'icon'  => 'image',
+			'icon'  => 'images',
 			'tabs'	=> $tabs
 		];
 	}
