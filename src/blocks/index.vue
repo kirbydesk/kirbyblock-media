@@ -25,17 +25,20 @@
 				>
 
 				<!-- Tagline -->
-				<pwTagline v-if="settings.tagline" :value="content.tagline" />
+				<pwTagline v-if="settings.tagline" :value="content.tagline" :alignDefault="fieldDefaults['align-tagline']" />
 
 				<!-- Heading -->
-				<pwHeading v-if="settings.heading" :value="content.heading" :data-level="content.level" />
+				<pwHeading v-if="settings.heading" :value="content.heading" :data-level="content.level" :alignDefault="fieldDefaults['align-heading']" />
+
+				<!-- Editor -->
+				<pwEditor v-if="settings.editor" :content="content" :alignDefault="fieldDefaults['align-editor']" />
 
 				<!-- Image -->
 				<pwImage v-if="content.mediatype === 'image'"
 					:src="content?.image?.[0]?.url || ''"
 					:srcset="content?.image?.[0]?.image?.srcset || ''"
 					:size="content.mediasize"
-					:alignment="content.mediaalignment"
+					:alignment="content.mediaalignment || fieldDefaults['align-media']"
 					:image="content?.image?.[0] || null"
 				/>
 				<!-- Slideshow (First image) -->
@@ -44,7 +47,7 @@
 					:srcset="content?.slideshow?.[0]?.slideshow?.srcset || ''"
 					:count="Array.isArray(content.slideshow) ? content.slideshow.length : 0"
 					:size="content.mediasize"
-					:alignment="content.mediaalignment"
+					:alignment="content.mediaalignment || fieldDefaults['align-media']"
 					:image="content?.slideshow?.[0] || null"
 				/>
 				<!-- Video -->
@@ -52,7 +55,7 @@
 					:url="content.videourl"
 					:source="content.videosource"
 					:size="content.mediasize"
-					:alignment="content.mediaalignment"
+					:alignment="content.mediaalignment || fieldDefaults['align-media']"
 					:video="content?.video?.[0] || null"
 				/>
 
@@ -65,6 +68,7 @@
 import pwBlockinfo from '@/../../kirby-pagewizard/src/components/blockinfo.vue'
 import pwTagline from '@/../../kirby-pagewizard/src/components/tagline.vue'
 import pwHeading from '@/../../kirby-pagewizard/src/components/heading.vue'
+import pwEditor from '@/../../kirby-pagewizard/src/components/editor.vue'
 import pwImage from '@/../../kirby-pagewizard/src/components/image.vue'
 import pwVideo from '@/../../kirby-pagewizard/src/components/video.vue'
 import pwGridStyle from '@/../../kirby-pagewizard/src/mixins/gridStyle.js';
@@ -75,19 +79,22 @@ export default {
 		pwBlockinfo,
 		pwTagline,
 		pwHeading,
+		pwEditor,
 		pwImage,
 		pwVideo
 	},
 	mixins: [pwGridStyle, pwColorStyle],
 	data() {
 		return {
-			settings: {}
+			settings: {},
+			fieldDefaults: {}
 		}
 	},
 	async created() {
 		try {
 			const response = await this.$api.get('pagewizard/settings/pwmedia');
 			this.settings = response.settings;
+			this.fieldDefaults = response.fields || {};
 		} catch (e) {
 			this.settings = {};
 		}

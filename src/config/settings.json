@@ -1,5 +1,10 @@
 {
-  "heading": true,
-  "tagline": true,
-  "tab-grid": true
+  "fields": {
+    "tagline": true,
+    "heading": true,
+    "editor": false
+  },
+  "tabs": {
+    "grid": true
+  }
 }

@@ -47,6 +47,11 @@ if (!empty($settings['heading'])):
 	snippet('heading', ['content' => $block]);
 endif;
 
+// Editor
+if (!empty($settings['editor'])):
+	snippet('editor', ['content' => $block]);
+endif;
+
 // Media
 snippet('media', ['content' => $block]);
 

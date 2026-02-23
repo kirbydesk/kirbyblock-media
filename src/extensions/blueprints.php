@@ -1,13 +1,17 @@
 <?php return [ 'blocks/pwmedia' => function () {
 
     /* -------------- Config --------------*/
-    $config   = pwConfig::load('pwmedia');
-    $settings = $config['settings'];
-    $defaults = $config['defaults'];
+    $config      = pwConfig::load('pwmedia');
+    $settings    = $config['settings'];
+    $tabSettings = $config['tabs'];
+    $defaults    = $config['defaults'];
+    $fields      = $config['fields'];
+		$editor      = $config['editor'];
 
     /* -------------- Allowed Fields --------------*/
-    $defaultHeading = !empty($settings['heading']);
     $defaultTagline = !empty($settings['tagline']);
+    $defaultHeading = !empty($settings['heading']);
+		$defaultEditor = !empty($settings['editor']);
 
 		/* -------------- Tabs --------------*/
     $tabs = [];
@@ -20,14 +24,20 @@
 		/* -------------- Tagline --------------*/
 		if ($defaultTagline) {
 			$contentFields['tagline'] = [
-				'extends' => 'pagewizard/fields/tagline'
+				'extends' => 'pagewizard/fields/tagline',
+				'align'   => $fields['align-tagline'],
 			];
 		}
 		/* -------------- Heading --------------*/
 		if ($defaultHeading) {
 			$contentFields['heading'] = [
-				'extends' => 'pagewizard/fields/heading'
+				'extends' => 'pagewizard/fields/heading',
+				'align'   => $fields['align-heading'],
 			];
+		}
+		/* -------------- Editor --------------*/
+		if ($defaultEditor) {
+			$contentFields['editor'] = pwEditor::contentField($defaults, $editor, $settings, $fields);
 		}
 		/* -------------- Media Size --------------*/
 		$contentFields['mediaSize'] = [
@@ -35,8 +45,10 @@
 		];
 		/* -------------- Media Alignment (injected into mediaType label) --------------*/
 		$contentFields['mediaAlignment'] = [
-			'type' => 'pwalign',
-			'default' => 'left'
+			'type'          => 'pwalign',
+			'align'         => $fields['align-media'],
+			'default'       => $fields['align-media'],
+			'alwaysVisible' => true,
 		];
 		/* -------------- Media Type --------------*/
 		$contentFields['mediaType'] = [
@@ -99,7 +111,7 @@
 		$tabs['style'] = pwStyle::options('pwmedia', $defaults);
 
 		/* -------------- Common Tabs (grid, spacing, theme) --------------*/
-		pwConfig::buildTabs('pwmedia', $defaults, $settings, $tabs);
+		pwConfig::buildTabs('pwmedia', $defaults, $tabSettings, $tabs);
 
 		/* -------------- Settings Tab --------------*/
 		$tabs['settings'] = pwSettings::options('pwmedia', $defaults);
