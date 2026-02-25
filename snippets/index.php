@@ -20,7 +20,7 @@ echo ' data-padding-right="'.$block->paddingright()->value().'"';
 echo ' data-padding-bottom="'.$block->paddingbottom()->value().'"';
 echo ' data-padding-left="'.$block->paddingleft()->value().'"';
 echo ' data-style="'.$block->style()->value().'"';
-echo ' data-background-size="'.$block->backgroundsize()->value().'"';
+echo ' data-block-size="'.$block->blocksize()->value().'"';
 echo $block->fragment()->isNotEmpty() ? ' id="'.$block->fragment()->value().'"' : '';
 echo '>'."\n";
 
