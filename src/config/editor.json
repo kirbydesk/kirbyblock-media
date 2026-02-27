@@ -1,8 +1,8 @@
 {
   "default-mode": "textarea",
   "marks": ["bold", "italic", "underline", "strike", "link"],
-  "nodes": ["heading", "bulletList", "orderedList"],
-  "headings": [2, 3, 4],
+  "nodes": ["bulletList", "orderedList"],
+  "headings": [],
   "toolbar": {
     "inline": false
   }

@@ -105,16 +105,16 @@
 		];
 
 		/* -------------- Layout Tab --------------*/
-		$tabs['layout'] = pwLayout::options('pwmedia', $defaults);
+		pwConfig::addTab($tabs, 'layout', $tabSettings['layout'] ?? true, pwLayout::options('pwmedia', $defaults));
 
 		/* -------------- Style Tab --------------*/
-		$tabs['style'] = pwStyle::options('pwmedia', $defaults);
+		pwConfig::addTab($tabs, 'style', $tabSettings['style'] ?? true, pwStyle::options('pwmedia', $defaults));
 
-		/* -------------- Common Tabs (grid, spacing, theme) --------------*/
-		pwConfig::buildTabs('pwmedia', $defaults, $tabSettings, $tabs);
+		/* -------------- Grid Tab --------------*/
+		pwConfig::addTab($tabs, 'grid', $tabSettings['grid'] ?? false, pwGrid::layout('pwmedia', $defaults));
 
 		/* -------------- Settings Tab --------------*/
-		$tabs['settings'] = pwSettings::options('pwmedia', $defaults);
+		pwConfig::addTab($tabs, 'settings', $tabSettings['settings'] ?? true, pwSettings::options('pwmedia', $defaults));
 
 		/* -------------- Blueprint --------------*/
 		return [
