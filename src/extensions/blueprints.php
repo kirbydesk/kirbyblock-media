@@ -2,7 +2,7 @@
 
     /* -------------- Config --------------*/
     $config      = pwConfig::load('pwmedia');
-    $settings    = $config['settings'];
+    $settings    = $config['content'];
     $tabSettings = $config['tabs'];
     $defaults    = $config['defaults'];
     $fields      = $config['fields'];
@@ -105,16 +105,16 @@
 		];
 
 		/* -------------- Layout Tab --------------*/
-		pwConfig::addTab($tabs, 'layout', $tabSettings['layout'] ?? true, pwLayout::options('pwmedia', $defaults));
+		pwConfig::addTab($tabs, 'layout', $tabSettings['layout'] ?? true, pwLayout::options('pwmedia', $defaults, [], $config['layout'] ?? []));
 
 		/* -------------- Style Tab --------------*/
-		pwConfig::addTab($tabs, 'style', $tabSettings['style'] ?? true, pwStyle::options('pwmedia', $defaults));
+		pwConfig::addTab($tabs, 'style', $tabSettings['style'] ?? true, pwStyle::options('pwmedia', $defaults, [], $config['style'] ?? []));
 
 		/* -------------- Grid Tab --------------*/
 		pwConfig::addTab($tabs, 'grid', $tabSettings['grid'] ?? false, pwGrid::layout('pwmedia', $defaults));
 
 		/* -------------- Settings Tab --------------*/
-		pwConfig::addTab($tabs, 'settings', $tabSettings['settings'] ?? true, pwSettings::options('pwmedia', $defaults));
+		pwConfig::addTab($tabs, 'settings', $tabSettings['settings'] ?? true, pwSettings::options('pwmedia', $defaults, [], $config['settings'] ?? []));
 
 		/* -------------- Blueprint --------------*/
 		return [
