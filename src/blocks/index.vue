@@ -24,41 +24,43 @@
 				:data-paddingleft="content.paddingleft === true ? 'true' : null"
 				>
 
-				<!-- Tagline -->
-				<pwTagline v-if="settings.tagline" :value="content.tagline" :alignDefault="fieldDefaults['align-tagline']" />
+				<div class="contents">
 
-				<!-- Heading -->
-				<pwHeading v-if="settings.heading" :value="content.heading" :data-level="content.level" :alignDefault="fieldDefaults['align-heading']" />
+					<!-- Tagline -->
+					<pwTagline v-if="settings.tagline" :value="content.tagline" :alignDefault="fieldDefaults['align-tagline']" />
 
-				<!-- Editor -->
-				<pwEditor v-if="settings.editor" :content="content" :alignDefault="fieldDefaults['align-editor']" />
+					<!-- Heading -->
+					<pwHeading v-if="settings.heading" :value="content.heading" :data-level="content.level" :alignDefault="fieldDefaults['align-heading']" />
 
-				<!-- Image -->
-				<pwImage v-if="content.mediatype === 'image'"
-					:src="content?.image?.[0]?.url || ''"
-					:srcset="content?.image?.[0]?.image?.srcset || ''"
-					:size="content.mediasize"
-					:alignment="content.mediaalignment || fieldDefaults['align-media']"
-					:image="content?.image?.[0] || null"
-				/>
-				<!-- Slideshow (First image) -->
-				<pwImage v-if="content.mediatype === 'slideshow'"
-					:src="content?.slideshow?.[0]?.url || ''"
-					:srcset="content?.slideshow?.[0]?.slideshow?.srcset || ''"
-					:count="Array.isArray(content.slideshow) ? content.slideshow.length : 0"
-					:size="content.mediasize"
-					:alignment="content.mediaalignment || fieldDefaults['align-media']"
-					:image="content?.slideshow?.[0] || null"
-				/>
-				<!-- Video -->
-				<pwVideo v-if="content.mediatype === 'video'"
-					:url="content.videourl"
-					:source="content.videosource"
-					:size="content.mediasize"
-					:alignment="content.mediaalignment || fieldDefaults['align-media']"
-					:video="content?.video?.[0] || null"
-				/>
+					<!-- Editor -->
+					<pwEditor v-if="settings.editor" :content="content" :alignDefault="fieldDefaults['align-editor']" />
 
+					<!-- Image -->
+					<pwImage v-if="content.mediatype === 'image'"
+						:src="content?.image?.[0]?.url || ''"
+						:srcset="content?.image?.[0]?.image?.srcset || ''"
+						:size="content.mediasize"
+						:alignment="content.mediaalignment || fieldDefaults['align-media']"
+						:image="content?.image?.[0] || null"
+					/>
+					<!-- Slideshow (First image) -->
+					<pwImage v-if="content.mediatype === 'slideshow'"
+						:src="content?.slideshow?.[0]?.url || ''"
+						:srcset="content?.slideshow?.[0]?.slideshow?.srcset || ''"
+						:count="Array.isArray(content.slideshow) ? content.slideshow.length : 0"
+						:size="content.mediasize"
+						:alignment="content.mediaalignment || fieldDefaults['align-media']"
+						:image="content?.slideshow?.[0] || null"
+					/>
+					<!-- Video -->
+					<pwVideo v-if="content.mediatype === 'video'"
+						:url="content.videourl"
+						:source="content.videosource"
+						:size="content.mediasize"
+						:alignment="content.mediaalignment || fieldDefaults['align-media']"
+						:video="content?.video?.[0] || null"
+					/>
+				</div>
 			</div>
 		</div>
 	</div>
