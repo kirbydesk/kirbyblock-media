@@ -95,40 +95,37 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
         type: Object,
         default: () => ({})
       },
-      alignDefault: { type: String, default: "left" }
+      alignDefault: { type: String, default: null },
+      sizeDefault: { type: String, default: null }
     },
     computed: {
       parsedData() {
         var _a2;
         const val = ((_a2 = this.content) == null ? void 0 : _a2.heading) || this.value;
-        if (!val) return { text: "", level: "h2", align: this.alignDefault };
+        if (!val) return { text: "", align: this.alignDefault };
         try {
           return typeof val === "string" ? JSON.parse(val) : val;
         } catch (e) {
-          return { text: val, level: "h2", align: this.alignDefault };
+          return { text: val, align: this.alignDefault };
         }
       },
       text() {
         const { text = "" } = this.parsedData;
         return text;
       },
-      level() {
-        const { level = "h2" } = this.parsedData;
-        return level;
-      },
       align() {
         const { align = this.alignDefault } = this.parsedData;
         return align;
       },
       size() {
-        const { size = "normal" } = this.parsedData;
+        const { size = this.sizeDefault } = this.parsedData;
         return size;
       }
     }
   };
   var _sfc_render$7 = function render() {
     var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "pwHeading", attrs: { "data-align": _vm.align, "data-lvl": _vm.level, "data-size": _vm.size } }, [_vm.text ? _c("div", { domProps: { "innerHTML": _vm._s(_vm.text) } }) : _c("div", { staticClass: "placeholder" }, [_vm._v(" " + _vm._s(_vm.$t("pw.field.heading.placeholder")) + " ")])]);
+    return _c("div", { staticClass: "pwHeading", attrs: { "data-align": _vm.align, "data-size": _vm.size } }, [_vm.text ? _c("div", { domProps: { "innerHTML": _vm._s(_vm.text) } }) : _c("div", { staticClass: "placeholder" }, [_vm._v(" " + _vm._s(_vm.$t("pw.field.heading.placeholder")) + " ")])]);
   };
   var _sfc_staticRenderFns$7 = [];
   _sfc_render$7._withStripped = true;
@@ -1625,7 +1622,7 @@ Please report this to https://github.com/markedjs/marked.`, e) {
   var _sfc_render = function render() {
     var _a2, _b, _c2, _d, _e2, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t;
     var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "pwPreview", style: _vm.colorVars, attrs: { "data-kirbyblock": "media", "data-margintop": _vm.content.margintop === true ? "true" : null, "data-marginbottom": _vm.content.marginbottom === true ? "true" : null }, on: { "dblclick": _vm.open } }, [_c("pwBlockinfo", { attrs: { "value": _vm.$t("kirbyblock-media.name"), "icon": "images", "layout": _vm.$t("pw.option." + _vm.content.mediatype) } }), _c("div", { staticClass: "pwGrid" }, [_c("div", { staticClass: "pwGridItem", style: _vm.gridVars, attrs: { "data-paddingtop": _vm.content.paddingtop === true ? "true" : null, "data-paddingright": _vm.content.paddingright === true ? "true" : null, "data-paddingbottom": _vm.content.paddingbottom === true ? "true" : null, "data-paddingleft": _vm.content.paddingleft === true ? "true" : null } }, [_c("div", { staticClass: "contents" }, [_vm.settings.tagline ? _c("pwTagline", { attrs: { "value": _vm.content.tagline, "alignDefault": _vm.fieldDefaults["align-tagline"] } }) : _vm._e(), _vm.settings.heading ? _c("pwHeading", { attrs: { "value": _vm.content.heading, "data-level": _vm.content.level, "alignDefault": _vm.fieldDefaults["align-heading"] } }) : _vm._e(), _vm.settings.editor ? _c("pwEditor", { attrs: { "content": _vm.content, "alignDefault": _vm.fieldDefaults["align-editor"] } }) : _vm._e(), _vm.content.mediatype === "image" ? _c("pwImage", { attrs: { "src": ((_c2 = (_b = (_a2 = _vm.content) == null ? void 0 : _a2.image) == null ? void 0 : _b[0]) == null ? void 0 : _c2.url) || "", "srcset": ((_g = (_f = (_e2 = (_d = _vm.content) == null ? void 0 : _d.image) == null ? void 0 : _e2[0]) == null ? void 0 : _f.image) == null ? void 0 : _g.srcset) || "", "size": _vm.content.mediasize, "alignment": _vm.content.mediaalignment || _vm.fieldDefaults["align-media"], "image": ((_i = (_h = _vm.content) == null ? void 0 : _h.image) == null ? void 0 : _i[0]) || null } }) : _vm._e(), _vm.content.mediatype === "slideshow" ? _c("pwImage", { attrs: { "src": ((_l = (_k = (_j = _vm.content) == null ? void 0 : _j.slideshow) == null ? void 0 : _k[0]) == null ? void 0 : _l.url) || "", "srcset": ((_p = (_o = (_n = (_m = _vm.content) == null ? void 0 : _m.slideshow) == null ? void 0 : _n[0]) == null ? void 0 : _o.slideshow) == null ? void 0 : _p.srcset) || "", "count": Array.isArray(_vm.content.slideshow) ? _vm.content.slideshow.length : 0, "size": _vm.content.mediasize, "alignment": _vm.content.mediaalignment || _vm.fieldDefaults["align-media"], "image": ((_r = (_q = _vm.content) == null ? void 0 : _q.slideshow) == null ? void 0 : _r[0]) || null } }) : _vm._e(), _vm.content.mediatype === "video" ? _c("pwVideo", { attrs: { "url": _vm.content.videourl, "source": _vm.content.videosource, "size": _vm.content.mediasize, "alignment": _vm.content.mediaalignment || _vm.fieldDefaults["align-media"], "video": ((_t = (_s = _vm.content) == null ? void 0 : _s.video) == null ? void 0 : _t[0]) || null } }) : _vm._e()], 1)])])], 1);
+    return _c("div", { staticClass: "pwPreview", style: _vm.colorVars, attrs: { "data-kirbyblock": "media", "data-margintop": _vm.content.margintop === true ? "true" : null, "data-marginbottom": _vm.content.marginbottom === true ? "true" : null }, on: { "dblclick": _vm.open } }, [_c("pwBlockinfo", { attrs: { "value": _vm.$t("kirbyblock-media.name"), "icon": "images", "layout": _vm.$t("pw.option." + _vm.content.mediatype) } }), _c("div", { staticClass: "pwGrid" }, [_c("div", { staticClass: "pwGridItem", style: _vm.gridVars, attrs: { "data-paddingtop": _vm.content.paddingtop === true ? "true" : null, "data-paddingright": _vm.content.paddingright === true ? "true" : null, "data-paddingbottom": _vm.content.paddingbottom === true ? "true" : null, "data-paddingleft": _vm.content.paddingleft === true ? "true" : null } }, [_c("div", { staticClass: "contents" }, [_vm.settings.tagline ? _c("pwTagline", { attrs: { "value": _vm.content.tagline, "alignDefault": _vm.fieldDefaults["align-tagline"] } }) : _vm._e(), _vm.settings.heading ? _c("pwHeading", { attrs: { "value": _vm.content.heading, "data-level": _vm.content.level, "alignDefault": _vm.fieldDefaults["align-heading"], "sizeDefault": _vm.fieldDefaults["size-heading"] } }) : _vm._e(), _vm.settings.editor ? _c("pwEditor", { attrs: { "content": _vm.content, "alignDefault": _vm.fieldDefaults["align-editor"] } }) : _vm._e(), _vm.content.mediatype === "image" ? _c("pwImage", { attrs: { "src": ((_c2 = (_b = (_a2 = _vm.content) == null ? void 0 : _a2.image) == null ? void 0 : _b[0]) == null ? void 0 : _c2.url) || "", "srcset": ((_g = (_f = (_e2 = (_d = _vm.content) == null ? void 0 : _d.image) == null ? void 0 : _e2[0]) == null ? void 0 : _f.image) == null ? void 0 : _g.srcset) || "", "size": _vm.content.mediasize, "alignment": _vm.content.mediaalignment || _vm.fieldDefaults["align-media"], "image": ((_i = (_h = _vm.content) == null ? void 0 : _h.image) == null ? void 0 : _i[0]) || null } }) : _vm._e(), _vm.content.mediatype === "slideshow" ? _c("pwImage", { attrs: { "src": ((_l = (_k = (_j = _vm.content) == null ? void 0 : _j.slideshow) == null ? void 0 : _k[0]) == null ? void 0 : _l.url) || "", "srcset": ((_p = (_o = (_n = (_m = _vm.content) == null ? void 0 : _m.slideshow) == null ? void 0 : _n[0]) == null ? void 0 : _o.slideshow) == null ? void 0 : _p.srcset) || "", "count": Array.isArray(_vm.content.slideshow) ? _vm.content.slideshow.length : 0, "size": _vm.content.mediasize, "alignment": _vm.content.mediaalignment || _vm.fieldDefaults["align-media"], "image": ((_r = (_q = _vm.content) == null ? void 0 : _q.slideshow) == null ? void 0 : _r[0]) || null } }) : _vm._e(), _vm.content.mediatype === "video" ? _c("pwVideo", { attrs: { "url": _vm.content.videourl, "source": _vm.content.videosource, "size": _vm.content.mediasize, "alignment": _vm.content.mediaalignment || _vm.fieldDefaults["align-media"], "video": ((_t = (_s = _vm.content) == null ? void 0 : _s.video) == null ? void 0 : _t[0]) || null } }) : _vm._e()], 1)])])], 1);
   };
   var _sfc_staticRenderFns = [];
   _sfc_render._withStripped = true;
