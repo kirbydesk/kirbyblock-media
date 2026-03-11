@@ -47,10 +47,6 @@
 			$contentFields['editor']['sizeOptions']  = $fieldOptions['editor']['sizes'] ?? null;
 			$contentFields['editor']['defaultMode'] = $fields['mode-editor'] ?? null;
 		}
-		/* -------------- Media Size --------------*/
-		$contentFields['mediaSize'] = [
-			'extends' => 'pagewizard/fields/media-size'
-		];
 		/* -------------- Media Alignment (injected into mediaType label) --------------*/
 		$contentFields['mediaAlignment'] = [
 			'type'          => 'pwalign',
@@ -63,7 +59,34 @@
 		$contentFields['mediaType'] = [
 			'extends' => 'pagewizard/fields/media-type'
 		];
-
+		/* -------------- Media Size --------------*/
+		$contentFields['mediaSize'] = [
+			'extends' => 'pagewizard/fields/media-size'
+		];
+		/* -------------- Media Radius --------------*/
+		$contentFields['mediaRadius'] = [
+			'extends' => 'pagewizard/fields/media-radius'
+		];
+		$contentFields['radiusTopLeft'] = [
+			'extends' => 'pagewizard/fields/toggle',
+			'label'   => 'pw.field.radius-top-left',
+			'when'    => ['mediaRadius' => 'custom']
+		];
+		$contentFields['radiusTopRight'] = [
+			'extends' => 'pagewizard/fields/toggle',
+			'label'   => 'pw.field.radius-top-right',
+			'when'    => ['mediaRadius' => 'custom']
+		];
+		$contentFields['radiusBottomLeft'] = [
+			'extends' => 'pagewizard/fields/toggle',
+			'label'   => 'pw.field.radius-bottom-left',
+			'when'    => ['mediaRadius' => 'custom']
+		];
+		$contentFields['radiusBottomRight'] = [
+			'extends' => 'pagewizard/fields/toggle',
+			'label'   => 'pw.field.radius-bottom-right',
+			'when'    => ['mediaRadius' => 'custom']
+		];
 		/* -------------- Image --------------*/
 		$contentFields['image'] = [
 			'extends' => 'pagewizard/fields/image',

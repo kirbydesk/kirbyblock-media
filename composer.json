@@ -1,6 +1,6 @@
 {
 	"name": "kirbydesk/kirbyblock-media",
-	"version": "1.4.0",
+	"version": "1.4.5",
 	"description": "Media Block for Kirby CMS",
 	"type": "kirby-plugin",
 	"keywords": [
