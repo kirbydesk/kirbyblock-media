@@ -1,160 +1,73 @@
-<?php return [ 'blocks/pwmedia' => function () {
-
-    /* -------------- Config --------------*/
-    $config       = pwConfig::load('pwmedia');
-    $settings     = $config['content'];
-    $tabSettings  = $config['tabs'];
-    $defaults     = $config['defaults'];
-    $fields       = $config['fields'];
-		$editor       = $config['editor'];
-		$fieldOptions = $config['field-options'];
-
-
-		/* -------------- Tabs --------------*/
-    $tabs = [];
-
-		/* -------------- Content Tab --------------*/
-		$contentFields = [
-			'headlineContent' => ['extends' => 'pagewizard/headlines/content']
-		];
-
-		/* -------------- Tagline --------------*/
-		if (!empty($settings['tagline'])) {
-			$contentFields['tagline'] = [
-				'extends'      => 'pagewizard/fields/tagline',
-				'align'        => $fields['align-tagline'],
-				'alignOptions' => $fieldOptions['tagline']['align'] ?? null,
-			];
-		}
-		/* -------------- Heading --------------*/
-		if (!empty($settings['heading'])) {
-			$contentFields['heading'] = [
-				'extends'      => 'pagewizard/fields/heading',
-				'align'        => $fields['align-heading'],
-				'level'        => $fields['level-heading'] ?? null,
-				'size'         => $fields['size-heading'] ?? null,
-				'sizeOptions'  => $fieldOptions['heading']['sizes'] ?? null,
-				'alignOptions' => $fieldOptions['heading']['align'] ?? null,
-				'levelOptions' => $fieldOptions['heading']['level'] ?? null,
-				'textbackground'        => $fields['textbackground-heading'] ?? null,
-				'textbackgroundOptions' => $fieldOptions['heading']['textbackground'] ?? null,
-			];
-		}
-		/* -------------- Editor --------------*/
-		if (!empty($settings['editor'])) {
-			$contentFields['editor'] = pwEditor::contentField($editor, $settings);
-			$contentFields['editor']['align']        = $fields['align-editor'] ?? null;
-			$contentFields['editor']['size']         = $fields['size-editor'] ?? null;
-			$contentFields['editor']['alignOptions'] = $fieldOptions['editor']['align'] ?? null;
-			$contentFields['editor']['sizeOptions']  = $fieldOptions['editor']['sizes'] ?? null;
-			$contentFields['editor']['defaultMode'] = $fields['mode-editor'] ?? null;
-		}
-		/* -------------- Media Alignment (injected into mediaType label) --------------*/
-		$contentFields['mediaAlignment'] = [
-			'type'          => 'pwalign',
-			'align'         => $fields['align-media'],
-			'default'       => $fields['align-media'],
-			'alignOptions'  => $fieldOptions['media']['align'] ?? null,
-			'alwaysVisible' => true,
-		];
-		/* -------------- Media Type --------------*/
-		$contentFields['mediaType'] = [
-			'extends' => 'pagewizard/fields/media-type'
-		];
-		/* -------------- Media Size --------------*/
-		$contentFields['mediaSize'] = [
-			'extends' => 'pagewizard/fields/media-size'
-		];
-		/* -------------- Media Radius --------------*/
-		$contentFields['mediaRadius'] = [
-			'extends' => 'pagewizard/fields/media-radius'
-		];
-		$contentFields['radiusTopLeft'] = [
-			'extends' => 'pagewizard/fields/toggle',
-			'label'   => 'pw.field.radius-top-left',
-			'when'    => ['mediaRadius' => 'custom']
-		];
-		$contentFields['radiusTopRight'] = [
-			'extends' => 'pagewizard/fields/toggle',
-			'label'   => 'pw.field.radius-top-right',
-			'when'    => ['mediaRadius' => 'custom']
-		];
-		$contentFields['radiusBottomLeft'] = [
-			'extends' => 'pagewizard/fields/toggle',
-			'label'   => 'pw.field.radius-bottom-left',
-			'when'    => ['mediaRadius' => 'custom']
-		];
-		$contentFields['radiusBottomRight'] = [
-			'extends' => 'pagewizard/fields/toggle',
-			'label'   => 'pw.field.radius-bottom-right',
-			'when'    => ['mediaRadius' => 'custom']
-		];
-		/* -------------- Image --------------*/
-		$contentFields['image'] = [
-			'extends' => 'pagewizard/fields/image',
-			'uploads' => 'pwImage',
-			'query' => 'page.images.template("pwImage")',
-			'when'    => [
-				'mediaType' => 'image'
+<?php return [
+	'blocks/pwmedia' => pwBlueprint::main('pwmedia', fn($cfg) => [
+		'name' => 'kirbyblock-media.name',
+		'icon' => 'images',
+		'contentFields' => array_merge(
+			pwBlueprint::stdContent($cfg, ['tagline', 'heading', 'editor']),
+			[
+				'mediaAlignment' => [
+					'type'          => 'pwalign',
+					'align'         => $cfg['fields']['align-media'],
+					'default'       => $cfg['fields']['align-media'],
+					'alignOptions'  => $cfg['field-options']['media']['align'] ?? null,
+					'alwaysVisible' => true,
+				],
+				'mediaType' => [
+					'extends' => 'pagewizard/fields/media-type'
+				],
+				'mediaSize' => [
+					'extends' => 'pagewizard/fields/media-size'
+				],
+				'mediaRadius' => [
+					'extends' => 'pagewizard/fields/media-radius'
+				],
+				'radiusTopLeft' => [
+					'extends' => 'pagewizard/fields/toggle',
+					'label'   => 'pw.field.radius-top-left',
+					'when'    => ['mediaRadius' => 'custom']
+				],
+				'radiusTopRight' => [
+					'extends' => 'pagewizard/fields/toggle',
+					'label'   => 'pw.field.radius-top-right',
+					'when'    => ['mediaRadius' => 'custom']
+				],
+				'radiusBottomLeft' => [
+					'extends' => 'pagewizard/fields/toggle',
+					'label'   => 'pw.field.radius-bottom-left',
+					'when'    => ['mediaRadius' => 'custom']
+				],
+				'radiusBottomRight' => [
+					'extends' => 'pagewizard/fields/toggle',
+					'label'   => 'pw.field.radius-bottom-right',
+					'when'    => ['mediaRadius' => 'custom']
+				],
+				'image' => [
+					'extends' => 'pagewizard/fields/image',
+					'uploads' => 'pwImage',
+					'query'   => 'page.images.template("pwImage")',
+					'when'    => ['mediaType' => 'image']
+				],
+				'slideshow' => [
+					'extends' => 'pagewizard/fields/images',
+					'uploads' => 'pwImage',
+					'query'   => 'page.images.template("pwImage")',
+					'when'    => ['mediaType' => 'slideshow']
+				],
+				'videoSource' => [
+					'extends' => 'pagewizard/fields/video-source',
+					'when'    => ['mediaType' => 'video']
+				],
+				'videoUrl' => [
+					'extends' => 'pagewizard/fields/video-url',
+					'when'    => ['mediaType' => 'video', 'videoSource' => 'external']
+				],
+				'video' => [
+					'extends' => 'pagewizard/fields/video',
+					'uploads' => 'pwVideo',
+					'query'   => 'page.files.template("pwVideo")',
+					'when'    => ['mediaType' => 'video', 'videoSource' => 'internal']
+				],
 			]
-		];
-		/* -------------- Slideshow --------------*/
-		$contentFields['slideshow'] = [
-			'extends' => 'pagewizard/fields/images',
-			'uploads' => 'pwImage',
-			'query' => 'page.images.template("pwImage")',
-			'when'    => [
-				'mediaType' => 'slideshow'
-			]
-		];
-		/* -------------- Video Source --------------*/
-		$contentFields['videoSource'] = [
-			'extends' => 'pagewizard/fields/video-source',
-			'when'    => [
-				'mediaType' => 'video'
-			]
-		];
-		/* -------------- Video Url --------------*/
-		$contentFields['videoUrl'] = [
-			'extends' => 'pagewizard/fields/video-url',
-			'when'    => [
-				'mediaType' => 'video',
-				'videoSource' => 'external'
-			]
-		];
-		/* -------------- Video --------------*/
-		$contentFields['video'] = [
-			'extends' => 'pagewizard/fields/video',
-			'uploads' => 'pwVideo',
-			'query' => 'page.files.template("pwVideo")',
-			'when'    => [
-				'mediaType' => 'video',
-				'videoSource' => 'internal',
-			]
-		];
-
-		$tabs['content'] = [
-			'label'  => 'pw.tab.content',
-			'fields' => $contentFields,
-		];
-
-		/* -------------- Layout Tab --------------*/
-		pwConfig::addTab($tabs, 'layout', $tabSettings['layout'] ?? true, pwLayout::options('pwmedia', $defaults, [], $config['layout'] ?? []));
-
-		/* -------------- Style Tab --------------*/
-		pwConfig::addTab($tabs, 'style', $tabSettings['style'] ?? true, pwStyle::options('pwmedia', $defaults, [], $config['style'] ?? []));
-
-		/* -------------- Grid Tab --------------*/
-		pwConfig::addTab($tabs, 'grid', $tabSettings['grid'] ?? false, pwGrid::layout('pwmedia', $defaults));
-
-		/* -------------- Settings Tab --------------*/
-		pwConfig::addTab($tabs, 'settings', $tabSettings['settings'] ?? true, pwSettings::options('pwmedia', $defaults, [], $config['settings'] ?? []));
-
-		/* -------------- Blueprint --------------*/
-		return [
-			'name'	=> 'kirbyblock-media.name',
-			'icon'  => 'images',
-			'tabs'	=> $tabs
-		];
-	}
+		),
+	]),
 ];
