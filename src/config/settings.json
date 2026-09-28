@@ -90,6 +90,7 @@
 				}
 			},
 			"media": {
+				"locked": true,
 				"align": {
 					"options": [
 						"left",
