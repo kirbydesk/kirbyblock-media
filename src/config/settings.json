@@ -98,6 +98,44 @@
 						"right"
 					],
 					"default": "left"
+				},
+				"type": {
+					"options": [
+						"image",
+						"slideshow",
+						"video"
+					],
+					"default": "image"
+				},
+				"size": {
+					"options": [
+						"xsmall",
+						"small",
+						"medium",
+						"large",
+						"fullscreen"
+					],
+					"default": "small"
+				},
+				"radius": {
+					"options": [
+						"none",
+						"round",
+						"custom"
+					],
+					"default": "none"
+				},
+				"radius-top-left": {
+					"default": false
+				},
+				"radius-top-right": {
+					"default": false
+				},
+				"radius-bottom-left": {
+					"default": false
+				},
+				"radius-bottom-right": {
+					"default": false
 				}
 			}
 		},
