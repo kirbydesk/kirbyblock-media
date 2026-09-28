@@ -1,16 +1,7 @@
 /* DO NOT MODIFY THIS FILE - Override in site/patches/css/kirbyblock-media/_styles.css */
 section[data-block="media"] {
-
 	/* -------------- Tagline Margins--------------*/
 	[data-field="tagline"] {
-		+ [data-field="heading"] {
-			margin-top: 0.5rem;
-		}
-		+ [data-field="textarea"],
-		+ [data-field="writer"],
-		+ [data-field="markdown"] {
-			margin-top: 0.3rem;
-		}
 		+ [data-field="image"],
 		+ [data-field="slideshow"],
 		+ [data-field="video"]{
@@ -20,11 +11,6 @@ section[data-block="media"] {
 
 	/* -------------- Heading Margins--------------*/
 	[data-field="heading"] {
-		+ [data-field="textarea"],
-		+ [data-field="writer"],
-		+ [data-field="markdown"] {
-			margin-top: 0.5rem;
-		}
 		+ [data-field="image"],
 		+ [data-field="slideshow"],
 		+ [data-field="video"] {
