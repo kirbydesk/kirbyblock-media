@@ -8,4 +8,5 @@
 	'kirbyblock-media.size.large' => '75%',
 	'kirbyblock-media.size.fullscreen' => '100%',
 	'kirbyblock-media.radius.none' => 'None',
+	'kirbyblock-media.item-text-gap' => 'Space to the intro',
 );
