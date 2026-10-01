@@ -5,7 +5,7 @@ section[data-block="media"] {
 		+ [data-field="image"],
 		+ [data-field="slideshow"],
 		+ [data-field="video"]{
-			margin-top: var(--pwmedia-item-text-gap);
+			padding-top: var(--pwmedia-item-text-gap);
 		}
 	}
 
@@ -14,7 +14,7 @@ section[data-block="media"] {
 		+ [data-field="image"],
 		+ [data-field="slideshow"],
 		+ [data-field="video"] {
-			margin-top: var(--pwmedia-item-text-gap);
+			padding-top: var(--pwmedia-item-text-gap);
 		}
 	}
 
@@ -25,14 +25,8 @@ section[data-block="media"] {
 		+ [data-field="image"],
 		+ [data-field="slideshow"],
 		+ [data-field="video"] {
-			margin-top: var(--pwmedia-item-text-gap);
+			padding-top: var(--pwmedia-item-text-gap);
 		}
 	}
 }
 
-/* the intro's last element: no space below of its own before the media –
-   there only the gap to the intro applies (Project Wizard → Design ›
-   Spacing); the elements' space below applies within the intro */
-section[data-block="media"][data-block] :is([data-field="tagline"], [data-field="heading"], [data-field="textarea"], [data-field="writer"], [data-field="markdown"]):has(+ :is([data-field="image"], [data-field="slideshow"], [data-field="video"])):not([data-block="item"] *) {
-	margin-bottom: 0;
-}

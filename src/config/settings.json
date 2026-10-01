@@ -38,7 +38,7 @@
 				},
 				"item-text-gap": {
 					"label": "kirbyblock-media.item-text-gap",
-					"value": "1.2rem",
+					"value": "0rem",
 					"unit": "rem",
 					"step": 0.1,
 					"min": 0,
